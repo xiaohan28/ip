@@ -1,8 +1,16 @@
 package ip.src.main.java;
 
 public class Task {
-    protected String description;
-    protected boolean isDone;
+    private final String description;
+    private boolean isDone;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public boolean isDone() {
+        return isDone;
+    }
 
     public Task(String description) {
         this.description = description;
@@ -21,7 +29,8 @@ public class Task {
         isDone = false;
     }
 
-    public String displayTask() {
-        return "[" + getStatusIcon() + "]" + description;
+    @Override
+    public String toString() {
+        return "[" + getStatusIcon() + "] " + description;
     }
 }
