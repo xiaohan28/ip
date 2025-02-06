@@ -31,6 +31,79 @@ public class Eepy {
         }
     }
 
+    private static void printTaskAdded(ArrayList<Task> tasks) {
+        if (!tasks.isEmpty()) {
+            Task lastTask = tasks.get(tasks.size() - 1);
+            System.out.println("    Added: " + lastTask +
+                    "\nNow you have " + tasks.size() + " tasks in the list.");
+        }
+    }
+
+    private static void commandReader(String userInput, ArrayList<Task> tasks, Scanner input) {
+        while (!userInput.equalsIgnoreCase("bye")) {
+            if (userInput.equalsIgnoreCase("list")) { //if "list" command, list the elements in the array
+                System.out.println("To-Do Tasks:");
+                for (int i = 0; i < tasks.size(); i++) {
+                    System.out.println((i + 1) + ":" + tasks.get(i));
+                }
+            } else if (userInput.toLowerCase().startsWith("mark")) {
+                updateTaskStatus(userInput, tasks, true);
+            } else if (userInput.toLowerCase().startsWith("unmark")) {
+                updateTaskStatus(userInput, tasks, false);
+            } else if (userInput.toLowerCase().startsWith("deadline")) {
+                deadlineFormatter(userInput, tasks);
+                printTaskAdded(tasks);
+            } else if (userInput.toLowerCase().startsWith("event")) {
+                eventFormatter(userInput, tasks);
+                printTaskAdded(tasks);
+            } else if (userInput.toLowerCase().startsWith("todo")){
+                toDoFormatter(userInput, tasks);
+                printTaskAdded(tasks);
+            } else {
+                System.out.println("Invalid command: " + userInput + "." +
+                        "/nPlease use 'todo', 'deadline', 'event', 'mark', 'unmark', or 'list'.");
+            }
+
+            printSeparator();
+            userInput = input.nextLine();
+            printSeparator();
+        }
+    }
+
+    public static void toDoFormatter(String userInput, ArrayList<Task> tasks) {
+        ToDo toDo = new ToDo(userInput);
+        tasks.add(toDo);
+    }
+
+    public static void deadlineFormatter(String userInput, ArrayList<Task> tasks) {
+        String description, by;
+        String[] deadlineParts = userInput.substring(8).trim().split("/by");
+
+        if (deadlineParts.length == 2) {
+            description = deadlineParts[0].trim();
+            by = deadlineParts[1].trim();
+            Deadline deadline = new Deadline(description, by);
+            tasks.add(deadline);
+        } else {
+            System.out.println("Invalid event format. Use: event <description> /from <start> /to <end>");
+        }
+    }
+
+    public static void eventFormatter(String userInput, ArrayList<Task> tasks) {
+        String description, from, to;
+        String[] eventParts = userInput.substring(5).trim().split("/from|/to");
+
+        if (eventParts.length == 3) {
+            description = eventParts[0].trim();
+            from = eventParts[1].trim();
+            to = eventParts[2].trim();
+            Event event = new Event(description, from, to);
+            tasks.add(event);
+        } else {
+            System.out.println("Invalid event format. Use: event <description> /from <start> /to <end>");
+        }
+    }
+
     public static void runToDoTracker (String[] args) {
         Scanner input = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>(); //user input array (dynamic)
@@ -42,24 +115,7 @@ public class Eepy {
         String userInput = input.nextLine(); //initial input
         printSeparator();
 
-        while (!userInput.equalsIgnoreCase("bye")) {
-            if (userInput.equalsIgnoreCase("list")) { //if "list" command, list the elements in the array
-                System.out.println("To-Do Tasks:");
-                for (int i = 0; i < tasks.size(); i++) {
-                    System.out.println((i + 1) + ":" + tasks.get(i));
-                }
-            } else if (userInput.toLowerCase().startsWith("mark")) {
-                updateTaskStatus(userInput, tasks, true);
-            } else if (userInput.toLowerCase().startsWith("unmark")) {
-                updateTaskStatus(userInput, tasks, false);
-            } else { //else add user input to the array and echo the input
-                System.out.println("    Added: " + userInput);
-                tasks.add(new Task(userInput));
-            } //continue accepting input after 'list' or 'add'
-            printSeparator();
-            userInput = input.nextLine();
-            printSeparator();
-        }
+        commandReader(userInput, tasks, input);
         System.out.println("End of To-Do Tracker, bye! Hope to see you again soon :>");
         printSeparator();
     }

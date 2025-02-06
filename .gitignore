@@ -19,3 +19,6 @@ text-ui-test/EXPECTED-UNIX.TXT
 # Class files
 Eepy.class
 Task.class
+Todo.class
+Event.class
+Deadline.class
