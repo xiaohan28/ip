@@ -16,9 +16,6 @@ bin/
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 
-# Class files
-Eepy.class
-Task.class
-Todo.class
-Event.class
-Deadline.class
+# Ignore compiled class files and output directories
+*.class
+

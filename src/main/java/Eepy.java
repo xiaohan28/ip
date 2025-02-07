@@ -5,27 +5,35 @@ import java.util.ArrayList;
 
 public class Eepy {
 
+    private static final String SEPARATOR = "_____________________________________";
     public static void printSeparator() {
-        System.out.println("_____________________________________");
+        System.out.println(SEPARATOR);
     }
 
     public static void updateTaskStatus(String userInput, ArrayList<Task> tasks, boolean markDone) {
+
+        String command = markDone ? "mark" : "unmark";
+
         try {
-            String command = markDone ? "mark" : "unmark";
             int taskNumber = Integer.parseInt(userInput.substring(command.length()).trim()) - 1;
-            //minus 1 so that number start with 0 instead of 1
-            if (taskNumber >= 0 && taskNumber < tasks.size()) {
-                if (markDone) {
-                    tasks.get(taskNumber).markAsDone();
-                    System.out.println("Well done! You've completed the following task:");
-                } else {
-                    tasks.get(taskNumber).unmarkAsDone();
-                    System.out.println("Oh no! You have one additional task:");
-                }
-                System.out.println(" " + tasks.get(taskNumber));
-            } else {
+
+            if (taskNumber < 0 || taskNumber >= tasks.size()) {
                 System.out.println("Task number not within range.");
+                return;  // Exit early to reduce nesting
             }
+
+            Task task = tasks.get(taskNumber);  // Avoid repeated get()
+
+            if (markDone) {
+                task.markAsDone();
+                System.out.println("Well done! You've completed the following task:");
+            } else {
+                task.unmarkAsDone();
+                System.out.println("Oh no! You have one additional task:");
+            }
+
+            System.out.println(" " + task);  // Print task status
+
         } catch (NumberFormatException e) {
             System.out.println("Invalid task number, please provide an integer.");
         }
@@ -44,7 +52,7 @@ public class Eepy {
             if (userInput.equalsIgnoreCase("list")) { //if "list" command, list the elements in the array
                 System.out.println("To-Do Tasks:");
                 for (int i = 0; i < tasks.size(); i++) {
-                    System.out.println((i + 1) + ":" + tasks.get(i));
+                    System.out.println((i + 1) + ": " + tasks.get(i));
                 }
             } else if (userInput.toLowerCase().startsWith("mark")) {
                 updateTaskStatus(userInput, tasks, true);
@@ -59,9 +67,11 @@ public class Eepy {
             } else if (userInput.toLowerCase().startsWith("todo")){
                 toDoFormatter(userInput, tasks);
                 printTaskAdded(tasks);
+            } else if (userInput.trim().isEmpty()) {
+                System.out.println("No command entered. Please type a command.");
             } else {
                 System.out.println("Invalid command: " + userInput + "." +
-                        "/nPlease use 'todo', 'deadline', 'event', 'mark', 'unmark', or 'list'.");
+                        "\nPlease use 'todo', 'deadline', 'event', 'mark', 'unmark', or 'list'.");
             }
 
             printSeparator();
@@ -85,7 +95,7 @@ public class Eepy {
             Deadline deadline = new Deadline(description, by);
             tasks.add(deadline);
         } else {
-            System.out.println("Invalid event format. Use: event <description> /from <start> /to <end>");
+            System.out.println("Invalid deadline format. Use: deadline <description> /by <date>");
         }
     }
 
