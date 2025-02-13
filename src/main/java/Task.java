@@ -1,5 +1,3 @@
-package ip.src.main.java;
-
 public class Task {
     private final String description;
     private boolean isDone;

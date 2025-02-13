@@ -1,5 +1,3 @@
-package ip.src.main.java;//package ip.src.main.java;
-
 import java.util.Scanner;
 import java.util.ArrayList;
 
