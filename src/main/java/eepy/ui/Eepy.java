@@ -79,7 +79,7 @@ public class Eepy {
                             "\nPlease use 'todo', 'deadline', 'event', 'mark', 'unmark', or 'list'.");
                 }
             } catch (EepyException e) {
-                System.out.println("STOPPP! " + e.getMessage());
+                System.out.println("Aw man! " + e.getMessage());
             }
 
             printSeparator();
@@ -146,7 +146,7 @@ public class Eepy {
 
     public static void main(String[] args) {
         printSeparator();
-        System.out.println("Hello! I'm eepy.ui.Eepy" + "\n" + "What can I do for you?");
+        System.out.println("Hello! I'm Eepy" + "\n" + "What can I do for you?");
         runToDoTracker(args);
     }
 }
