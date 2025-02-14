@@ -16,7 +16,8 @@ public class Eepy {
             int taskNumber = Integer.parseInt(userInput.substring(command.length()).trim()) - 1;
 
             if (taskNumber < 0 || taskNumber >= tasks.size()) {
-                throw new EepyException("Task number not within range.");
+                System.out.println("Task number not within range.");
+                return;
             }
 
             Task task = tasks.get(taskNumber);  // Avoid repeated get()
@@ -31,18 +32,19 @@ public class Eepy {
 
             System.out.println(" " + task);  // Print task status
 
-        } catch (EepyException e) {
+        } catch (NumberFormatException e) {
             System.out.println("Invalid task number, please provide an integer.");
         }
     }
 
-    private static void printTaskAdded(ArrayList<Task> tasks) throws EepyException {
+    private static void printTaskAdded(ArrayList<Task> tasks) {
         if (!tasks.isEmpty()) {
             Task lastTask = tasks.get(tasks.size() - 1);
-            throw new EepyException("    Added: " + lastTask +
+            System.out.println("  Added: " + lastTask +
                     "\nNow you have " + tasks.size() + " tasks in the list.");
         }
     }
+
 
     private static void commandReader(String userInput, ArrayList<Task> tasks, Scanner input) {
         while (!userInput.equalsIgnoreCase("bye")) {
@@ -88,7 +90,7 @@ public class Eepy {
             throw new EepyException("No description entered.");
         }
 
-        ToDo toDo = new ToDo(userInput);
+        ToDo toDo = new ToDo(description);
         tasks.add(toDo);
     }
 
