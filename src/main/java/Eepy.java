@@ -17,7 +17,7 @@ public class Eepy {
 
             if (taskNumber < 0 || taskNumber >= tasks.size()) {
                 System.out.println("Task number not within range.");
-                return;  // Exit early to reduce nesting
+                return;
             }
 
             Task task = tasks.get(taskNumber);  // Avoid repeated get()
@@ -40,36 +40,41 @@ public class Eepy {
     private static void printTaskAdded(ArrayList<Task> tasks) {
         if (!tasks.isEmpty()) {
             Task lastTask = tasks.get(tasks.size() - 1);
-            System.out.println("    Added: " + lastTask +
+            System.out.println("  Added: " + lastTask +
                     "\nNow you have " + tasks.size() + " tasks in the list.");
         }
     }
 
+
     private static void commandReader(String userInput, ArrayList<Task> tasks, Scanner input) {
         while (!userInput.equalsIgnoreCase("bye")) {
-            if (userInput.equalsIgnoreCase("list")) { //if "list" command, list the elements in the array
-                System.out.println("To-Do Tasks:");
-                for (int i = 0; i < tasks.size(); i++) {
-                    System.out.println((i + 1) + ": " + tasks.get(i));
+            try {
+                if (userInput.equalsIgnoreCase("list")) { //if "list" command, list the elements in the array
+                    System.out.println("To-Do Tasks:");
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println((i + 1) + ": " + tasks.get(i));
+                    }
+                } else if (userInput.toLowerCase().startsWith("mark")) {
+                    updateTaskStatus(userInput, tasks, true);
+                } else if (userInput.toLowerCase().startsWith("unmark")) {
+                    updateTaskStatus(userInput, tasks, false);
+                } else if (userInput.toLowerCase().startsWith("deadline")) {
+                    deadlineFormatter(userInput, tasks);
+                    printTaskAdded(tasks);
+                } else if (userInput.toLowerCase().startsWith("event")) {
+                    eventFormatter(userInput, tasks);
+                    printTaskAdded(tasks);
+                } else if (userInput.toLowerCase().startsWith("todo")) {
+                    toDoFormatter(userInput, tasks);
+                    printTaskAdded(tasks);
+                } else if (userInput.trim().isEmpty()) {
+                    throw new EepyException("No command entered. Please type a command.");
+                } else {
+                    throw new EepyException("Invalid command: " + userInput + "." +
+                            "\nPlease use 'todo', 'deadline', 'event', 'mark', 'unmark', or 'list'.");
                 }
-            } else if (userInput.toLowerCase().startsWith("mark")) {
-                updateTaskStatus(userInput, tasks, true);
-            } else if (userInput.toLowerCase().startsWith("unmark")) {
-                updateTaskStatus(userInput, tasks, false);
-            } else if (userInput.toLowerCase().startsWith("deadline")) {
-                deadlineFormatter(userInput, tasks);
-                printTaskAdded(tasks);
-            } else if (userInput.toLowerCase().startsWith("event")) {
-                eventFormatter(userInput, tasks);
-                printTaskAdded(tasks);
-            } else if (userInput.toLowerCase().startsWith("todo")){
-                toDoFormatter(userInput, tasks);
-                printTaskAdded(tasks);
-            } else if (userInput.trim().isEmpty()) {
-                System.out.println("No command entered. Please type a command.");
-            } else {
-                System.out.println("Invalid command: " + userInput + "." +
-                        "\nPlease use 'todo', 'deadline', 'event', 'mark', 'unmark', or 'list'.");
+            } catch (EepyException e) {
+                System.out.println("STOPPP! " + e.getMessage());
             }
 
             printSeparator();
@@ -78,12 +83,18 @@ public class Eepy {
         }
     }
 
-    public static void toDoFormatter(String userInput, ArrayList<Task> tasks) {
-        ToDo toDo = new ToDo(userInput);
+    public static void toDoFormatter(String userInput, ArrayList<Task> tasks) throws EepyException{
+        String description = userInput.substring(4).trim();
+
+        if (description.isEmpty()) {
+            throw new EepyException("No description entered.");
+        }
+
+        ToDo toDo = new ToDo(description);
         tasks.add(toDo);
     }
 
-    public static void deadlineFormatter(String userInput, ArrayList<Task> tasks) {
+    public static void deadlineFormatter(String userInput, ArrayList<Task> tasks) throws EepyException{
         String description, by;
         String[] deadlineParts = userInput.substring(8).trim().split("/by");
 
@@ -93,11 +104,11 @@ public class Eepy {
             Deadline deadline = new Deadline(description, by);
             tasks.add(deadline);
         } else {
-            System.out.println("Invalid deadline format. Use: deadline <description> /by <date>");
+            throw new EepyException("Invalid deadline format. Use: deadline <description> /by <date>");
         }
     }
 
-    public static void eventFormatter(String userInput, ArrayList<Task> tasks) {
+    public static void eventFormatter(String userInput, ArrayList<Task> tasks) throws EepyException{
         String description, from, to;
         String[] eventParts = userInput.substring(5).trim().split("/from|/to");
 
@@ -108,7 +119,7 @@ public class Eepy {
             Event event = new Event(description, from, to);
             tasks.add(event);
         } else {
-            System.out.println("Invalid event format. Use: event <description> /from <start> /to <end>");
+            throw new EepyException("Invalid event format. Use: event <description> /from <start> /to <end>");
         }
     }
 
