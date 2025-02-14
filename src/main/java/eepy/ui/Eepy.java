@@ -1,3 +1,8 @@
+package eepy.ui;
+
+import eepy.task.*;
+import eepy.exception.*;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -16,7 +21,7 @@ public class Eepy {
             int taskNumber = Integer.parseInt(userInput.substring(command.length()).trim()) - 1;
 
             if (taskNumber < 0 || taskNumber >= tasks.size()) {
-                System.out.println("Task number not within range.");
+                System.out.println("eepy.task.Task number not within range.");
                 return;
             }
 
@@ -83,7 +88,7 @@ public class Eepy {
         }
     }
 
-    public static void toDoFormatter(String userInput, ArrayList<Task> tasks) throws EepyException{
+    public static void toDoFormatter(String userInput, ArrayList<Task> tasks) throws EepyException {
         String description = userInput.substring(4).trim();
 
         if (description.isEmpty()) {
@@ -94,7 +99,7 @@ public class Eepy {
         tasks.add(toDo);
     }
 
-    public static void deadlineFormatter(String userInput, ArrayList<Task> tasks) throws EepyException{
+    public static void deadlineFormatter(String userInput, ArrayList<Task> tasks) throws EepyException {
         String description, by;
         String[] deadlineParts = userInput.substring(8).trim().split("/by");
 
@@ -108,7 +113,7 @@ public class Eepy {
         }
     }
 
-    public static void eventFormatter(String userInput, ArrayList<Task> tasks) throws EepyException{
+    public static void eventFormatter(String userInput, ArrayList<Task> tasks) throws EepyException {
         String description, from, to;
         String[] eventParts = userInput.substring(5).trim().split("/from|/to");
 
@@ -141,7 +146,7 @@ public class Eepy {
 
     public static void main(String[] args) {
         printSeparator();
-        System.out.println("Hello! I'm Eepy" + "\n" + "What can I do for you?");
+        System.out.println("Hello! I'm eepy.ui.Eepy" + "\n" + "What can I do for you?");
         runToDoTracker(args);
     }
 }

@@ -1,5 +1,5 @@
 _____________________________________
-Hello! I'm Eepy
+Hello! I'm eepy.ui.Eepy
 What can I do for you?
 _____________________________________
     Added: [T][ ] todo read book
