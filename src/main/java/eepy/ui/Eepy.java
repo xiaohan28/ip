@@ -2,6 +2,7 @@ package eepy.ui;
 
 import eepy.task.*;
 import eepy.exception.*;
+import eepy.database.*;
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -36,6 +37,8 @@ public class Eepy {
             }
 
             System.out.println(" " + task);  // Print task status
+
+            Database.appendToFile(task.toString()); // Save updated tasks
 
         } catch (NumberFormatException e) {
             System.out.println("Invalid task number, please provide an integer.");
@@ -130,7 +133,7 @@ public class Eepy {
 
     public static void runToDoTracker (String[] args) {
         Scanner input = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>(); //user input array (dynamic)
+        ArrayList<Task> tasks = Database.readFile(); //load list from database
 
         printSeparator();
         System.out.println("Start To-Do List Tracker");
