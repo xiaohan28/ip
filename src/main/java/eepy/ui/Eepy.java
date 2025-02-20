@@ -22,7 +22,7 @@ public class Eepy {
             int taskNumber = Integer.parseInt(userInput.substring(command.length()).trim()) - 1;
 
             if (taskNumber < 0 || taskNumber >= tasks.size()) {
-                System.out.println("eepy.task.Task number not within range.");
+                System.out.println("Task number not within range.");
                 return;
             }
 
@@ -51,7 +51,7 @@ public class Eepy {
             System.out.println("  Added: " + lastTask +
                     "\nNow you have " + tasks.size() + " tasks in the list.");
         }
-        Database.saveTasks(tasks);
+        Database.saveTasks(tasks); //save newly added tasks
     }
 
 

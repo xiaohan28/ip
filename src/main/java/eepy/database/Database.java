@@ -15,8 +15,19 @@ public class Database{
     public static void saveTasks(ArrayList<Task> tasks) {
         try {
             FileWriter fw = new FileWriter(RELATIVE_FILE_PATH);
+            String taskData;
             for (Task task : tasks) {
-                fw.write((task.isDone() ? "1" : "0") + "|" + task.getDescription() + "\n");
+                if (task instanceof Deadline) {
+                    Deadline deadline = (Deadline) task;
+                    taskData = deadline.getDescription() + "/by" + deadline.getBy();
+                } else if (task instanceof Event) {
+                    Event event = (Event) task;
+                    taskData = event.getDescription() + "/from" + event.getFrom() + "/to" + event.getTo();
+                } else {
+                    taskData = task.getDescription();
+                }
+                fw.write(task.getTaskType() + "|" + (task.isDone() ? "1" : "0") +
+                        "|" + taskData + "\n");
             }
             fw.close();
         } catch (IOException e) {
@@ -55,12 +66,34 @@ public class Database{
             return null;  //there is no isDone status
         }
 
-        boolean isDone = taskParts[0].equals("1");
-        String description = taskParts[1];
-        Task task = new Task(description); //default isDone is false
+        String taskType = taskParts[0];
+        boolean isDone = taskParts[1].equals("1");
+        String description = taskParts[2];
+
+        Task task;
+        if (taskType.equals("T")) {
+            task = new ToDo(description);
+        } else if (taskType.equals("D")) {
+            String[] deadlineFormat = description.split("/by", 2); //limit split into 2 only
+            if (deadlineFormat.length < 2) return null;
+            String deadlineDescription = deadlineFormat[0];
+            String by = deadlineFormat[1];
+            task = new Deadline(deadlineDescription, by);
+        } else if (taskType.equals("E")) {
+            String[] eventFormat = description.split("/from|/to", 3);
+            if (eventFormat.length < 3) return null;
+            String eventDescription = eventFormat[0];
+            String from = eventFormat[1];
+            String to = eventFormat[2];
+            task = new Event(eventDescription, from, to);
+        } else {
+            return null;
+        }
+
         if (isDone) {
             task.markAsDone();
         }
+
         return task;
     }
 

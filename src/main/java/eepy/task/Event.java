@@ -1,6 +1,6 @@
 package eepy.task;
 
-public class Event extends Task {
+public class Event extends Task implements TaskInterface{
     protected String from;
     protected String to;
 
@@ -23,6 +23,11 @@ public class Event extends Task {
         super(description);
         this.from = from;
         this.to = to;
+    }
+
+    @Override
+    public String getTaskType() {
+        return "E";
     }
 
     @Override
