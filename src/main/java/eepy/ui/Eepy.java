@@ -38,7 +38,7 @@ public class Eepy {
 
             System.out.println(" " + task);  // Print task status
 
-            Database.appendToFile(task.toString()); // Save updated tasks
+            Database.saveTasks(tasks); // Save updated tasks
 
         } catch (NumberFormatException e) {
             System.out.println("Invalid task number, please provide an integer.");
@@ -51,6 +51,7 @@ public class Eepy {
             System.out.println("  Added: " + lastTask +
                     "\nNow you have " + tasks.size() + " tasks in the list.");
         }
+        Database.saveTasks(tasks);
     }
 
 
@@ -133,7 +134,7 @@ public class Eepy {
 
     public static void runToDoTracker (String[] args) {
         Scanner input = new Scanner(System.in);
-        ArrayList<Task> tasks = Database.readFile(); //load list from database
+        ArrayList<Task> tasks = Database.loadTasks(); //load list from database
 
         printSeparator();
         System.out.println("Start To-Do List Tracker");
