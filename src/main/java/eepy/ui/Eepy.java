@@ -18,7 +18,7 @@ public class Eepy {
         String command = markDone ? "mark" : "unmark";
 
         try {
-            int taskNumber = Integer.parseInt(userInput.substring(command.length()).trim()) - 1;
+            int taskNumber = Integer.parseInt(userInput.substring(command.length()).trim()) - 1; //since array start from 0
 
             if (taskNumber < 0 || taskNumber >= tasks.size()) {
                 System.out.println("eepy.task.Task number not within range.");
@@ -50,6 +50,11 @@ public class Eepy {
         }
     }
 
+    private static void printTaskRemoved(ArrayList<Task> tasks, int taskToRemove) {
+        System.out.println("  Removed: " + tasks.get(taskToRemove) +
+                    "\nNow you have " + (tasks.size() - 1) + " tasks in the list.");
+    }
+
 
     private static void commandReader(String userInput, ArrayList<Task> tasks, Scanner input) {
         while (!userInput.equalsIgnoreCase("bye")) {
@@ -72,6 +77,10 @@ public class Eepy {
                 } else if (userInput.toLowerCase().startsWith("todo")) {
                     toDoFormatter(userInput, tasks);
                     printTaskAdded(tasks);
+                } else if (userInput.toLowerCase().startsWith("remove")) {
+                    int taskToRemove = Integer.parseInt(userInput.substring("remove".length()).trim()) - 1; //since array start from 0
+                    printTaskRemoved(tasks, taskToRemove);
+                    tasks.remove(taskToRemove);  //taskToRemove is treated as the index as there's no boxing of int
                 } else if (userInput.trim().isEmpty()) {
                     throw new EepyException("No command entered. Please type a command.");
                 } else {
