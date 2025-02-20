@@ -2,6 +2,7 @@ package eepy.ui;
 
 import eepy.task.*;
 import eepy.exception.*;
+import eepy.database.*;
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class Eepy {
             int taskNumber = Integer.parseInt(userInput.substring(command.length()).trim()) - 1; //since array start from 0
 
             if (taskNumber < 0 || taskNumber >= tasks.size()) {
-                System.out.println("eepy.task.Task number not within range.");
+                System.out.println("Task number not within range.");
                 return;
             }
 
@@ -37,6 +38,8 @@ public class Eepy {
 
             System.out.println(" " + task);  // Print task status
 
+            Database.saveTasks(tasks); // Save updated tasks
+
         } catch (NumberFormatException e) {
             System.out.println("Invalid task number, please provide an integer.");
         }
@@ -48,6 +51,7 @@ public class Eepy {
             System.out.println("  Added: " + lastTask +
                     "\nNow you have " + tasks.size() + " tasks in the list.");
         }
+        Database.saveTasks(tasks); //save newly added tasks
     }
 
     private static void printTaskRemoved(ArrayList<Task> tasks, int taskToRemove) {
@@ -139,7 +143,7 @@ public class Eepy {
 
     public static void runToDoTracker (String[] args) {
         Scanner input = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>(); //user input array (dynamic)
+        ArrayList<Task> tasks = Database.loadTasks(); //load list from database
 
         printSeparator();
         System.out.println("Start To-Do List Tracker");
