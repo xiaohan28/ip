@@ -3,6 +3,7 @@ package eepy.ui;
 import eepy.task.*;
 import eepy.exception.*;
 import eepy.database.*;
+import eepy.command.*;
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -12,37 +13,6 @@ public class Eepy {
     private static final String SEPARATOR = "_____________________________________";
     public static void printSeparator() {
         System.out.println(SEPARATOR);
-    }
-
-    public static void updateTaskStatus(String userInput, ArrayList<Task> tasks, boolean markDone) {
-
-        String command = markDone ? "mark" : "unmark";
-
-        try {
-            int taskNumber = Integer.parseInt(userInput.substring(command.length()).trim()) - 1; //since array start from 0
-
-            if (taskNumber < 0 || taskNumber >= tasks.size()) {
-                System.out.println("Task number not within range.");
-                return;
-            }
-
-            Task task = tasks.get(taskNumber);  // Avoid repeated get()
-
-            if (markDone) {
-                task.markAsDone();
-                System.out.println("Well done! You've completed the following task:");
-            } else {
-                task.unmarkAsDone();
-                System.out.println("Oh no! You have one additional task:");
-            }
-
-            System.out.println(" " + task);  // Print task status
-
-            Database.saveTasks(tasks); // Save updated tasks
-
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid task number, please provide an integer.");
-        }
     }
 
     private static void printTaskAdded(ArrayList<Task> tasks) {
@@ -64,14 +34,14 @@ public class Eepy {
         while (!userInput.equalsIgnoreCase("bye")) {
             try {
                 if (userInput.equalsIgnoreCase("list")) { //if "list" command, list the elements in the array
-                    System.out.println("To-Do Tasks:");
-                    for (int i = 0; i < tasks.size(); i++) {
-                        System.out.println((i + 1) + ": " + tasks.get(i));
-                    }
+                    ListCommand listCommand = new ListCommand();
+                    listCommand.execute(userInput, tasks, input);
                 } else if (userInput.toLowerCase().startsWith("mark")) {
-                    updateTaskStatus(userInput, tasks, true);
+                    MarkCommand markCommand = new MarkCommand(true);
+                    markCommand.execute(userInput, tasks, input);
                 } else if (userInput.toLowerCase().startsWith("unmark")) {
-                    updateTaskStatus(userInput, tasks, false);
+                    MarkCommand markCommand = new MarkCommand(false);
+                    markCommand.execute(userInput, tasks, input);
                 } else if (userInput.toLowerCase().startsWith("deadline")) {
                     deadlineFormatter(userInput, tasks);
                     printTaskAdded(tasks);
