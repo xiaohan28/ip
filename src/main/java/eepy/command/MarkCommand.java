@@ -46,4 +46,4 @@ public class MarkCommand extends Command{
             System.out.println("Invalid task number, please provide an integer.");
         }
     }
-};
+}
