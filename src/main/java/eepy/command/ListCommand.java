@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ListCommand extends Command{
+
+    public ListCommand (String userInput) {
+        super(userInput);
+    }
+
     @Override
     public void execute(String userInput, ArrayList<Task> tasks, Scanner input) throws EepyException{
         System.out.println("To-Do Tasks:");

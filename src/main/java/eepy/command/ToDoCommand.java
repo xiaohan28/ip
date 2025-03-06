@@ -9,20 +9,18 @@ import java.util.Scanner;
 
 public class ToDoCommand extends Command{
 
-    @Override
-    public void execute(String userInput, ArrayList<Task> tasks, Scanner input) throws EepyException {
-        String description = userInput.substring(4).trim();
-
-        if (description.isEmpty()) {
-            throw new EepyException("No description entered.");
-        }
-
-        ToDo toDo = new ToDo(description);
-        tasks.add(toDo);
+    public ToDoCommand(String userInput) {
+        super(userInput);
     }
 
     @Override
-    protected void printTaskAdded(ArrayList<Task> todo) {
-        super.printTaskAdded(todo);
+    public void execute(String userInput, ArrayList<Task> tasks, Scanner input) throws EepyException {
+        String description = userInput.substring(4).trim();
+        if (description.isEmpty()) {
+            throw new EepyException("No description entered.");
+        }
+        ToDo toDo = new ToDo(description);
+        tasks.add(toDo);
+        printTaskAdded(tasks);
     }
 }

@@ -24,37 +24,36 @@ public class Eepy {
 //        Database.saveTasks(tasks); //save newly added tasks
 //    }
 
-    private static void printTaskRemoved(ArrayList<Task> tasks, int taskToRemove) {
-        System.out.println("  Removed: " + tasks.get(taskToRemove) +
-                    "\nNow you have " + (tasks.size() - 1) + " tasks in the list.");
-    }
+//    private static void printTaskRemoved(ArrayList<Task> tasks, int taskToRemove) {
+//        System.out.println("  Removed: " + tasks.get(taskToRemove) +
+//                    "\nNow you have " + (tasks.size() - 1) + " tasks in the list.");
+//    }
 
 
     private static void commandReader(String userInput, ArrayList<Task> tasks, Scanner input) {
         while (!userInput.equalsIgnoreCase("bye")) {
             try {
                 if (userInput.equalsIgnoreCase("list")) { //if "list" command, list the elements in the array
-                    ListCommand listCommand = new ListCommand();
+                    ListCommand listCommand = new ListCommand(userInput);
                     listCommand.execute(userInput, tasks, input);
                 } else if (userInput.toLowerCase().startsWith("mark")) {
-                    MarkCommand markCommand = new MarkCommand(true);
+                    MarkCommand markCommand = new MarkCommand(userInput,true);
                     markCommand.execute(userInput, tasks, input);
                 } else if (userInput.toLowerCase().startsWith("unmark")) {
-                    MarkCommand markCommand = new MarkCommand(false);
+                    MarkCommand markCommand = new MarkCommand(userInput,false);
                     markCommand.execute(userInput, tasks, input);
                 } else if (userInput.toLowerCase().startsWith("deadline")) {
-                    DeadlineCommand deadlineCommand = new DeadlineCommand();
+                    DeadlineCommand deadlineCommand = new DeadlineCommand(userInput);
                     deadlineCommand.execute(userInput, tasks, input);
                 } else if (userInput.toLowerCase().startsWith("event")) {
-                    EventCommand eventCommand = new EventCommand();
+                    EventCommand eventCommand = new EventCommand(userInput);
                     eventCommand.execute(userInput, tasks, input);
                 } else if (userInput.toLowerCase().startsWith("todo")) {
-                    ToDoCommand toDoCommand = new ToDoCommand();
+                    ToDoCommand toDoCommand = new ToDoCommand(userInput);
                     toDoCommand.execute(userInput, tasks, input);
                 } else if (userInput.toLowerCase().startsWith("remove")) {
-                    int taskToRemove = Integer.parseInt(userInput.substring("remove".length()).trim()) - 1; //since array start from 0
-                    printTaskRemoved(tasks, taskToRemove);
-                    tasks.remove(taskToRemove);  //taskToRemove is treated as the index as there's no boxing of int
+                    RemoveCommand removeCommand = new RemoveCommand(userInput);
+                    removeCommand.execute(userInput, tasks, input);
                 } else if (userInput.trim().isEmpty()) {
                     throw new EepyException("No command entered. Please type a command.");
                 } else {

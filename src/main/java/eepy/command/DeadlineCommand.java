@@ -9,6 +9,10 @@ import java.util.Scanner;
 
 public class DeadlineCommand extends Command {
 
+    public DeadlineCommand(String userInput) {
+        super(userInput);
+    }
+
     @Override
     public void execute(String userInput, ArrayList<Task> tasks, Scanner input) throws EepyException {
 
@@ -20,13 +24,10 @@ public class DeadlineCommand extends Command {
             by = deadlineParts[1].trim();
             Deadline deadline = new Deadline(description, by);
             tasks.add(deadline);
+            printTaskAdded(tasks);
         } else {
             throw new EepyException("Invalid deadline format. Use: deadline <description> /by <date>");
         }
     }
 
-    @Override
-    protected void printTaskAdded(ArrayList<Task> deadline) {
-        super.printTaskAdded(deadline);
-    }
 }

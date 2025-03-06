@@ -11,7 +11,8 @@ public class MarkCommand extends Command{
 
     private final boolean markDone;
 
-    public MarkCommand(boolean markDone) {
+    public MarkCommand(String userInput, boolean markDone) {
+        super(userInput);
         this.markDone = markDone;
     };
 

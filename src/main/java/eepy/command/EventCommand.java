@@ -9,6 +9,10 @@ import java.util.Scanner;
 
 public class EventCommand extends Command {
 
+    public EventCommand (String userInput) {
+        super(userInput);
+    }
+
     @Override
     public void execute(String userInput, ArrayList<Task> tasks, Scanner input) throws EepyException {
 
@@ -21,14 +25,11 @@ public class EventCommand extends Command {
             to = eventParts[2].trim();
             Event event = new Event(description, from, to);
             tasks.add(event);
+            printTaskAdded(tasks);
         } else {
             throw new EepyException("Invalid event format. Use: event <description> /from <start> /to <end>");
         }
     }
 
-    @Override
-    protected void printTaskAdded(ArrayList<Task> event) {
-        super.printTaskAdded(event);
-    }
 
 }
