@@ -7,10 +7,6 @@ public class Deadline extends Task {
         return by;
     }
 
-    public void setBy(String by) {
-        this.by = by;
-    }
-
     public Deadline(String description, String by) {
         super(description);
         this.by = by;

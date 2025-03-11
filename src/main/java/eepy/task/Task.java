@@ -1,6 +1,6 @@
 package eepy.task;
 
-public class Task implements TaskInterface{
+public class Task {
     private final String description;
     private boolean isDone;
 
@@ -29,14 +29,13 @@ public class Task implements TaskInterface{
         isDone = false;
     }
 
-    @Override
-    public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+    public String getTaskType() {
+        return "T"; //default type
     }
 
     @Override
-    public String getTaskType() {
-        return "T"; //default type
+    public String toString() {
+        return "[" + getStatusIcon() + "] " + description;
     }
 
 }

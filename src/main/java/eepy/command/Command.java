@@ -1,11 +1,12 @@
 package eepy.command;
 
 import eepy.database.Database;
-import eepy.task.*;
+import eepy.task.TaskList;
+import eepy.task.Task;
 import eepy.exception.EepyException;
 import eepy.ui.Ui;
 
-import java.util.ArrayList;
+
 import java.util.Scanner;
 
 public abstract class Command {

@@ -1,10 +1,9 @@
 package eepy.command;
 
 import eepy.exception.EepyException;
-import eepy.task.*;
+import eepy.task.TaskList;
 import eepy.task.ToDo;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ToDoCommand extends Command{

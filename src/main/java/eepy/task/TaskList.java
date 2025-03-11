@@ -5,7 +5,7 @@ import eepy.ui.Ui;
 import java.util.ArrayList;
 
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     public TaskList() {
         this.tasks = new ArrayList<>();
@@ -17,7 +17,6 @@ public class TaskList {
 
     public void addTask(Task task) {
         tasks.add(task);
-//        Ui.showMessage("Task added: " + task.getDescription());
         Database.saveTasks(this);
     }
 
@@ -26,8 +25,7 @@ public class TaskList {
             Ui.showMessage("Invalid task index.");
             return;
         }
-        Task removedTask = tasks.remove(index);
-//        Ui.showMessage("Task removed: " + removedTask.getDescription());
+        tasks.remove(index);
         Database.saveTasks(this);
     }
 

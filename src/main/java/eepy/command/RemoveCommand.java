@@ -2,9 +2,8 @@ package eepy.command;
 
 import eepy.database.Database;
 import eepy.exception.EepyException;
-import eepy.task.*;
+import eepy.task.TaskList;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class RemoveCommand extends Command {

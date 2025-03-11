@@ -2,11 +2,13 @@ package eepy.database;
 
 import eepy.task.*;
 import eepy.ui.Ui;
+
 import java.util.ArrayList;
+import java.util.Scanner;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
-import java.util.Scanner;
 import java.io.IOException;
 
 

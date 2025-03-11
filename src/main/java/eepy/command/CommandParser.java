@@ -1,9 +1,9 @@
 package eepy.command;
 
-import eepy.task.*;
-import eepy.ui.*;
+import eepy.task.TaskList;
+import eepy.ui.Ui;
 import eepy.exception.*;
-import java.util.ArrayList;
+
 import java.util.Scanner;
 
 public class CommandParser {

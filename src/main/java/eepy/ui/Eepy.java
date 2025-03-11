@@ -2,7 +2,7 @@ package eepy.ui;
 
 import eepy.task.TaskList;
 import eepy.database.Database;
-import eepy.command.*;
+import eepy.command.CommandParser;
 
 import java.util.Scanner;
 

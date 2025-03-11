@@ -1,6 +1,6 @@
 package eepy.task;
 
-public class Event extends Task implements TaskInterface{
+public class Event extends Task{
     protected String from;
     protected String to;
 
@@ -9,10 +9,6 @@ public class Event extends Task implements TaskInterface{
     }
     public String getTo() {
         return to;
-    }
-
-    public void setFrom(String from) {
-        this.from = from;
     }
 
     public void setTo(String to) {

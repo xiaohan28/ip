@@ -2,9 +2,8 @@ package eepy.command;
 
 import eepy.exception.EepyException;
 import eepy.task.Deadline;
-import eepy.task.*;
+import eepy.task.TaskList;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DeadlineCommand extends Command {
