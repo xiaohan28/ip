@@ -1,17 +1,16 @@
 package eepy.ui;
 
-import eepy.task.*;
-import eepy.database.*;
+import eepy.task.TaskList;
+import eepy.database.Database;
 import eepy.command.*;
 
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Eepy {
 
-    public static void runToDoTracker (String[] args) {
+    public static void runToDoTracker() {
         Scanner input = new Scanner(System.in);
-        TaskList tasks = new TaskList(Database.loadTasks()); //load list from database
+        TaskList tasks = new TaskList(Database.loadTasks().getTasks()); //load list from database
 
         Ui.showMessage("Start To-Do List Tracker");
         Ui.printSeparator();
@@ -25,6 +24,6 @@ public class Eepy {
 
     public static void main(String[] args) {
         Ui.showWelcomeMessage();
-        runToDoTracker(args);
+        runToDoTracker();
     }
 }

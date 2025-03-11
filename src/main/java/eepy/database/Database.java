@@ -34,12 +34,12 @@ public class Database{
         }
     }
 
-    public static ArrayList<Task> loadTasks() {
+    public static TaskList loadTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(RELATIVE_FILE_PATH);
 
         if (!file.exists()) {
-            return tasks;
+            return new TaskList(tasks);
         }
 
         try {
@@ -55,7 +55,7 @@ public class Database{
         } catch (FileNotFoundException e) {
             Ui.showMessage("File not found");
         }
-        return tasks;
+        return new TaskList(tasks);
     }
 
     private static Task parseTask(String taskLine) {

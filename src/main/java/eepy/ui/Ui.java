@@ -26,7 +26,8 @@ public class Ui {
      * Prints the goodbye message when the user exits.
      */
     public static void showGoodbyeMessage() {
-        System.out.println("End of To-Do Tracker, bye! Hope to see you again soon :>");
+        System.out.println("End of To-Do Tracker!" +
+                        "\nHope to see you again soon :>");
         printSeparator();
     }
 
@@ -46,8 +47,6 @@ public class Ui {
      * @param message The message to be displayed.
      */
     public static void showMessage(String message) {
-//        printSeparator();
         System.out.println(message);
-//        printSeparator();
     }
 }

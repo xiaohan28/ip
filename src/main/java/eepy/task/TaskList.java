@@ -27,18 +27,25 @@ public class TaskList {
             return;
         }
         Task removedTask = tasks.remove(index);
-        Ui.showMessage("Task removed: " + removedTask.getDescription());
+//        Ui.showMessage("Task removed: " + removedTask.getDescription());
         Database.saveTasks(this);
     }
 
-    public void markTaskAsDone(int index) {
+    public void markTaskAsDone(int index, boolean markDone) {
         if (index < 0 || index >= tasks.size()) {
-            Ui.showMessage("Invalid task index.");
+            Ui.showMessage("Task number not within range.");
             return;
         }
         Task task = tasks.get(index);
-        task.markAsDone();
-        Ui.showMessage("Task marked as done: " + task.getDescription());
+
+        if (markDone) {
+            task.markAsDone();
+            Ui.showMessage("Well done! You've completed the following task:");
+        } else {
+            task.unmarkAsDone();
+            Ui.showMessage("Oh no! You have one additional task:");
+        }
+        Ui.showMessage(" " + task);
         Database.saveTasks(this);
     }
 
@@ -51,11 +58,10 @@ public class TaskList {
             Ui.showMessage("No tasks available.");
             return;
         }
-        Ui.printSeparator();
+        Ui.showMessage("To-Do Tasks:");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
+            Ui.showMessage((i + 1) + ": " + tasks.get(i));
         }
-        Ui.printSeparator();
     }
 
     public boolean isEmpty() {

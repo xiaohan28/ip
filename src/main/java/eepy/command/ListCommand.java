@@ -15,9 +15,10 @@ public class ListCommand extends Command{
 
     @Override
     public void execute(String userInput, TaskList tasks, Scanner input) throws EepyException{
-        Ui.showMessage("To-Do Tasks:");
-        for (int i = 0; i < tasks.size(); i++) {
-            Ui.showMessage((i + 1) + ": " + tasks.getTask(i));
-        }
+//        Ui.showMessage("To-Do Tasks:");
+//        for (int i = 0; i < tasks.size(); i++) {
+//            Ui.showMessage((i + 1) + ": " + tasks.getTask(i));
+//        }
+        tasks.listTasks();
     }
 }
