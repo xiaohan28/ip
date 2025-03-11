@@ -15,19 +15,6 @@ public class Eepy {
         System.out.println(SEPARATOR);
     }
 
-//    private static void printTaskAdded(ArrayList<Task> tasks) {
-//        if (!tasks.isEmpty()) {
-//            Task lastTask = tasks.get(tasks.size() - 1);
-//            System.out.println("  Added: " + lastTask +
-//                    "\nNow you have " + tasks.size() + " tasks in the list.");
-//        }
-//        Database.saveTasks(tasks); //save newly added tasks
-//    }
-
-//    private static void printTaskRemoved(ArrayList<Task> tasks, int taskToRemove) {
-//        System.out.println("  Removed: " + tasks.get(taskToRemove) +
-//                    "\nNow you have " + (tasks.size() - 1) + " tasks in the list.");
-//    }
 
 
     private static void commandReader(String userInput, ArrayList<Task> tasks, Scanner input) {
@@ -70,45 +57,6 @@ public class Eepy {
         }
     }
 
-//    public static void toDoFormatter(String userInput, ArrayList<Task> tasks) throws EepyException {
-//        String description = userInput.substring(4).trim();
-//
-//        if (description.isEmpty()) {
-//            throw new EepyException("No description entered.");
-//        }
-//
-//        ToDo toDo = new ToDo(description);
-//        tasks.add(toDo);
-//    }
-
-//    public static void deadlineFormatter(String userInput, ArrayList<Task> tasks) throws EepyException {
-//        String description, by;
-//        String[] deadlineParts = userInput.substring(8).trim().split("/by");
-//
-//        if (deadlineParts.length == 2) {
-//            description = deadlineParts[0].trim();
-//            by = deadlineParts[1].trim();
-//            Deadline deadline = new Deadline(description, by);
-//            tasks.add(deadline);
-//        } else {
-//            throw new EepyException("Invalid deadline format. Use: deadline <description> /by <date>");
-//        }
-//    }
-
-//    public static void eventFormatter(String userInput, ArrayList<Task> tasks) throws EepyException {
-//        String description, from, to;
-//        String[] eventParts = userInput.substring(5).trim().split("/from|/to");
-//
-//        if (eventParts.length == 3) {
-//            description = eventParts[0].trim();
-//            from = eventParts[1].trim();
-//            to = eventParts[2].trim();
-//            Event event = new Event(description, from, to);
-//            tasks.add(event);
-//        } else {
-//            throw new EepyException("Invalid event format. Use: event <description> /from <start> /to <end>");
-//        }
-//    }
 
     public static void runToDoTracker (String[] args) {
         Scanner input = new Scanner(System.in);
@@ -121,7 +69,7 @@ public class Eepy {
         String userInput = input.nextLine(); //initial input
         printSeparator();
 
-        commandReader(userInput, tasks, input);
+        CommandParser.parseCommands(userInput, tasks, input);
         System.out.println("End of To-Do Tracker, bye! Hope to see you again soon :>");
         printSeparator();
     }
