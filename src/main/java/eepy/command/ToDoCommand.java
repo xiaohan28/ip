@@ -1,7 +1,7 @@
 package eepy.command;
 
 import eepy.exception.EepyException;
-import eepy.task.Task;
+import eepy.task.*;
 import eepy.task.ToDo;
 
 import java.util.ArrayList;
@@ -14,13 +14,13 @@ public class ToDoCommand extends Command{
     }
 
     @Override
-    public void execute(String userInput, ArrayList<Task> tasks, Scanner input) throws EepyException {
+    public void execute(String userInput, TaskList tasks, Scanner input) throws EepyException {
         String description = userInput.substring(4).trim();
         if (description.isEmpty()) {
             throw new EepyException("No description entered.");
         }
         ToDo toDo = new ToDo(description);
-        tasks.add(toDo);
+        tasks.addTask(toDo);
         printTaskAdded(tasks);
     }
 }

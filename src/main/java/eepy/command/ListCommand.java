@@ -1,7 +1,8 @@
 package eepy.command;
 
-import eepy.task.Task;
+import eepy.task.*;
 import eepy.exception.EepyException;
+import eepy.ui.Ui;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -13,10 +14,10 @@ public class ListCommand extends Command{
     }
 
     @Override
-    public void execute(String userInput, ArrayList<Task> tasks, Scanner input) throws EepyException{
-        System.out.println("To-Do Tasks:");
+    public void execute(String userInput, TaskList tasks, Scanner input) throws EepyException{
+        Ui.showMessage("To-Do Tasks:");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ": " + tasks.get(i));
+            Ui.showMessage((i + 1) + ": " + tasks.getTask(i));
         }
     }
 }

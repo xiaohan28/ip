@@ -46,8 +46,8 @@ public class Ui {
      * @param message The message to be displayed.
      */
     public static void showMessage(String message) {
-        printSeparator();
+//        printSeparator();
         System.out.println(message);
-        printSeparator();
+//        printSeparator();
     }
 }

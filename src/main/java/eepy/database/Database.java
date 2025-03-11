@@ -1,6 +1,7 @@
 package eepy.database;
 
 import eepy.task.*;
+import eepy.ui.Ui;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,16 +13,14 @@ import java.io.IOException;
 public class Database{
     private static final String RELATIVE_FILE_PATH = "../../../data/eepy.txt";
 
-    public static void saveTasks(ArrayList<Task> tasks) {
+    public static void saveTasks(TaskList tasks) {
         try {
             FileWriter fw = new FileWriter(RELATIVE_FILE_PATH);
             String taskData;
-            for (Task task : tasks) {
-                if (task instanceof Deadline) {
-                    Deadline deadline = (Deadline) task;
+            for (Task task : tasks.getTasks()) {
+                if (task instanceof Deadline deadline) {
                     taskData = deadline.getDescription() + "/by" + deadline.getBy();
-                } else if (task instanceof Event) {
-                    Event event = (Event) task;
+                } else if (task instanceof Event event) {
                     taskData = event.getDescription() + "/from" + event.getFrom() + "/to" + event.getTo();
                 } else {
                     taskData = task.getDescription();
@@ -31,7 +30,7 @@ public class Database{
             }
             fw.close();
         } catch (IOException e) {
-            System.out.println("Error saving tasks: " +e.getMessage());
+            Ui.showMessage("Error saving tasks: " +e.getMessage());
         }
     }
 
@@ -54,7 +53,7 @@ public class Database{
             }
             s.close();
         } catch (FileNotFoundException e) {
-            System.out.println("File not found");
+            Ui.showMessage("File not found");
         }
         return tasks;
     }
@@ -71,23 +70,27 @@ public class Database{
         String description = taskParts[2];
 
         Task task;
-        if (taskType.equals("T")) {
-            task = new ToDo(description);
-        } else if (taskType.equals("D")) {
+        switch (taskType) {
+        case "T" -> task = new ToDo(description);
+        case "D" -> {
             String[] deadlineFormat = description.split("/by", 2); //limit split into 2 only
+
             if (deadlineFormat.length < 2) return null;
             String deadlineDescription = deadlineFormat[0];
             String by = deadlineFormat[1];
             task = new Deadline(deadlineDescription, by);
-        } else if (taskType.equals("E")) {
+        }
+        case "E" -> {
             String[] eventFormat = description.split("/from|/to", 3);
             if (eventFormat.length < 3) return null;
             String eventDescription = eventFormat[0];
             String from = eventFormat[1];
             String to = eventFormat[2];
             task = new Event(eventDescription, from, to);
-        } else {
+        }
+        default -> {
             return null;
+        }
         }
 
         if (isDone) {

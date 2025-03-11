@@ -2,7 +2,8 @@ package eepy.command;
 
 import eepy.database.Database;
 import eepy.exception.EepyException;
-import eepy.task.Task;
+import eepy.task.*;
+import eepy.ui.Ui;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -17,7 +18,7 @@ public class MarkCommand extends Command{
     };
 
     @Override
-    public void execute(String userInput, ArrayList<Task> tasks, Scanner input) throws EepyException {
+    public void execute(String userInput, TaskList tasks, Scanner input) throws EepyException {
 
         String command = markDone ? "mark" : "unmark";
 
@@ -25,26 +26,26 @@ public class MarkCommand extends Command{
             int taskNumber = Integer.parseInt(userInput.substring(command.length()).trim()) - 1; //since array start from 0
 
             if (taskNumber < 0 || taskNumber >= tasks.size()) {
-                System.out.println("Task number not within range.");
+                Ui.showMessage("Task number not within range.");
                 return;
             }
 
-            Task task = tasks.get(taskNumber);  // Avoid repeated get()
+            Task task = tasks.getTask(taskNumber);  // Avoid repeated get()
 
             if (markDone) {
                 task.markAsDone();
-                System.out.println("Well done! You've completed the following task:");
+                Ui.showMessage("Well done! You've completed the following task:");
             } else {
                 task.unmarkAsDone();
-                System.out.println("Oh no! You have one additional task:");
+                Ui.showMessage("Oh no! You have one additional task:");
             }
 
-            System.out.println(" " + task);  // Print task status
+            Ui.showMessage(" " + task);  // Print task status
 
             Database.saveTasks(tasks); // Save updated tasks
 
         } catch (NumberFormatException e) {
-            System.out.println("Invalid task number, please provide an integer.");
+            Ui.showMessage("Invalid task number, please provide an integer.");
         }
     }
 }

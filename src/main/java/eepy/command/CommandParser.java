@@ -1,13 +1,14 @@
 package eepy.command;
 
 import eepy.task.*;
+import eepy.ui.*;
 import eepy.exception.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CommandParser {
 
-    public static void parseCommands(String userInput, ArrayList<Task> tasks, Scanner input) {
+    public static void parseCommands(String userInput, TaskList tasks, Scanner input) {
         while (!userInput.equalsIgnoreCase("bye")) {
             try {
                 if (userInput.equalsIgnoreCase("list")) {
@@ -31,12 +32,12 @@ public class CommandParser {
                             "\nPlease use 'todo', 'deadline', 'event', 'mark', 'unmark', or 'list'.");
                 }
             } catch (EepyException e) {
-                System.out.println("Aw man! " + e.getMessage());
+                Ui.showMessage("Aw man! " + e.getMessage());
             }
 
-            System.out.println("_____________________________________");
-            userInput = input.nextLine();
-            System.out.println("_____________________________________");
+            Ui.printSeparator();
+            userInput = Ui.readUserInput(input);  // Read user input using Ui
+            Ui.printSeparator();
         }
     }
 }
