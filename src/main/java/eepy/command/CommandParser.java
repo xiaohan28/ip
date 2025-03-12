@@ -2,7 +2,7 @@ package eepy.command;
 
 import eepy.task.TaskList;
 import eepy.ui.Ui;
-import eepy.exception.*;
+import eepy.exception.EepyException;
 
 import java.util.Scanner;
 
@@ -25,6 +25,8 @@ public class CommandParser {
                     new ToDoCommand(userInput).execute(userInput, tasks, input);
                 } else if (userInput.toLowerCase().startsWith("remove")) {
                     new RemoveCommand(userInput).execute(userInput, tasks, input);
+                } else if (userInput.toLowerCase().startsWith("find")) {
+                    new FindCommand(userInput).execute(userInput, tasks, input);
                 } else if (userInput.trim().isEmpty()) {
                     throw new EepyException("No command entered. Please type a command.");
                 } else {

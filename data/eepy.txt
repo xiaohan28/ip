@@ -1,5 +1,8 @@
+T|1|fs
+E|0|hello/fromnow/tolater
 T|1|this
-D|0|this/bythen
-T|0|this
-T|0|fs
-E|1|hello/fromnow/tolater
+D|0|fesf/bysfkd
+E|0|dsfad/fromfdskjkdsa/tofdkjda
+E|1|sfdsaf/fromsfdf/tofsdf
+T|0|hw
+T|1|run
