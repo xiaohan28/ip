@@ -20,7 +20,7 @@ public class RemoveCommand extends Command {
             throw new EepyException("Task number not within range.");
         }
         printTaskRemoved(tasks, taskToRemove);
-        tasks.deleteTask(taskToRemove);
+        tasks.removeTask(taskToRemove);
         Database.saveTasks(tasks); //save updates after removal
     }
 }
