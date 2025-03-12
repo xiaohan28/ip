@@ -11,10 +11,17 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
-
+/**
+ * Handles saving and loading tasks to and from a file.
+ */
 public class Database{
     private static final String RELATIVE_FILE_PATH = "../../../data/eepy.txt";
 
+    /**
+     * Saves the current list of tasks to a textfile.
+     *
+     * @param tasks The TaskList to be saved.
+     */
     public static void saveTasks(TaskList tasks) {
         try {
             FileWriter fw = new FileWriter(RELATIVE_FILE_PATH);
@@ -36,6 +43,11 @@ public class Database{
         }
     }
 
+    /**
+     * Loads tasks from a textfile and returns them as a TaskList.
+     *
+     * @return A TaskList containing the loaded tasks.
+     */
     public static TaskList loadTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(RELATIVE_FILE_PATH);
@@ -60,6 +72,12 @@ public class Database{
         return new TaskList(tasks);
     }
 
+    /**
+     * Parses a line from the textfile into a Task object.
+     *
+     * @param taskLine The line representing a task.
+     * @return The parsed Task object, or null if the line is invalid.
+     */
     private static Task parseTask(String taskLine) {
         String[] taskParts = taskLine.split("\\|");
 

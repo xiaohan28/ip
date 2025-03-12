@@ -2,6 +2,10 @@ package eepy.ui;
 
 import java.util.Scanner;
 
+/**
+ * Handles user interaction by displaying messages and reading inputs.
+ */
+
 public class Ui {
 
     private static final String SEPARATOR = "_____________________________________";
@@ -42,7 +46,7 @@ public class Ui {
     }
 
     /**
-     * Prints a message wrapped in separators for clarity.
+     * Display a message to the user.
      *
      * @param message The message to be displayed.
      */
