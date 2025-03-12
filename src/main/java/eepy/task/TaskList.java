@@ -63,6 +63,24 @@ public class TaskList {
         tasks.add(task);
         Database.saveTasks(this);
     }
+    public boolean isEmpty() {
+        return tasks.isEmpty();
+    }
+
+    public int size() {
+        return tasks.size();
+    }
+
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
+    public Task getTask(int index) {
+        if (index < 0 || index >= tasks.size()) {
+            return null;
+        }
+        return tasks.get(index);
+    }
 
     /**
      * Removes a task from the list by its index.
@@ -78,9 +96,6 @@ public class TaskList {
         Database.saveTasks(this);
     }
 
-    /**
-     * Displays the list of tasks.
-     */
     public void listTasks() {
         if (tasks.isEmpty()) {
             Ui.showMessage("No tasks available.");
@@ -92,6 +107,7 @@ public class TaskList {
         }
     }
 
+
     /**
      * Retrieves a task by its index.
      *
@@ -102,9 +118,35 @@ public class TaskList {
         if (index < 0 || index >= tasks.size()) {
             return null;
         }
-        return tasks.get(index);
     }
 
+    /**
+     * Searches for tasks that contain the specified keyword in their description.
+     *
+     * @param keyword The keyword to search for within task descriptions.
+     */
+    public void findTasks(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                matchingTasks.add(task);
+            }
+        }
+
+        if (matchingTasks.isEmpty()) {
+            Ui.showMessage("No matching tasks found.");
+        } else {
+            Ui.showMessage("Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println((i + 1) + ". " + matchingTasks.get(i));
+            }
+        }
+    }
+
+
+    /**
+     * Displays the list of tasks.
+     */
     public void markTaskAsDone(int index, boolean markDone) {
         if (index < 0 || index >= tasks.size()) {
             Ui.showMessage("Task number not within range.");
