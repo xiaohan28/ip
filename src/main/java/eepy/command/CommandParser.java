@@ -2,12 +2,22 @@ package eepy.command;
 
 import eepy.task.TaskList;
 import eepy.ui.Ui;
-import eepy.exception.*;
+import eepy.exception.EepyException;
 
 import java.util.Scanner;
 
+/**
+ * Parses and processes user commands by delegating them to the appropriate command handlers.
+ */
 public class CommandParser {
 
+    /**
+     * Parses user input and executes the corresponding command.
+     *
+     * @param userInput The command entered by the user.
+     * @param tasks The task list to operate on.
+     * @param input The scanner object for reading user input.
+     */
     public static void parseCommands(String userInput, TaskList tasks, Scanner input) {
         while (!userInput.equalsIgnoreCase("bye")) {
             try {
@@ -36,7 +46,7 @@ public class CommandParser {
             }
 
             Ui.printSeparator();
-            userInput = Ui.readUserInput(input);  // Read user input using Ui
+            userInput = Ui.readUserInput(input);  // Read user input using eepy.ui.Ui
             Ui.printSeparator();
         }
     }

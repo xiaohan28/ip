@@ -105,12 +105,6 @@ public class TaskList {
         return tasks.get(index);
     }
 
-    /**
-     * Marks or unmarks a task as done based on the boolean value.
-     *
-     * @param index The index of the task to mark/unmark.
-     * @param markDone True to mark as done, false to unmark.
-     */
     public void markTaskAsDone(int index, boolean markDone) {
         if (index < 0 || index >= tasks.size()) {
             Ui.showMessage("Task number not within range.");

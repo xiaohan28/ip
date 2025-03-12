@@ -6,12 +6,28 @@ import eepy.task.TaskList;
 
 import java.util.Scanner;
 
+/**
+ * Represents a command to add a Deadline task.
+ */
 public class DeadlineCommand extends Command {
 
+    /**
+     * Constructs a DeadlineCommand with user input.
+     *
+     * @param userInput The full user input string.
+     */
     public DeadlineCommand(String userInput) {
         super(userInput);
     }
 
+    /**
+     * Executes the command to add a Deadline task.
+     *
+     * @param userInput The original user input.
+     * @param tasks The TaskList where the task should be added.
+     * @param input The Scanner for reading user input.
+     * @throws EepyException If the input format is incorrect.
+     */
     @Override
     public void execute(String userInput, TaskList tasks, Scanner input) throws EepyException {
 
