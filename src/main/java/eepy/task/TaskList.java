@@ -63,18 +63,14 @@ public class TaskList {
         tasks.add(task);
         Database.saveTasks(this);
     }
-    public boolean isEmpty() {
-        return tasks.isEmpty();
-    }
 
-    public int size() {
-        return tasks.size();
-    }
 
-    public ArrayList<Task> getTasks() {
-        return tasks;
-    }
-
+    /**
+     * Retrieves a task by its index.
+     *
+     * @param index The index of the task.
+     * @return The task at the given index or null if out of bounds.
+     */
     public Task getTask(int index) {
         if (index < 0 || index >= tasks.size()) {
             return null;
@@ -104,19 +100,6 @@ public class TaskList {
         Ui.showMessage("To-Do Tasks:");
         for (int i = 0; i < tasks.size(); i++) {
             Ui.showMessage((i + 1) + ": " + tasks.get(i));
-        }
-    }
-
-
-    /**
-     * Retrieves a task by its index.
-     *
-     * @param index The index of the task.
-     * @return The task at the given index or null if out of bounds.
-     */
-    public Task getTask(int index) {
-        if (index < 0 || index >= tasks.size()) {
-            return null;
         }
     }
 
