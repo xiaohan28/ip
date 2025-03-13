@@ -2,7 +2,6 @@ package eepy.command;
 
 import eepy.task.TaskList;
 import eepy.exception.EepyException;
-import eepy.ui.Ui;
 
 import java.util.Scanner;
 
@@ -20,8 +19,7 @@ public class FindCommand extends Command {
         String keyword = userInput.substring("find".length()).trim();
 
         if (keyword.isEmpty()) {
-            Ui.showMessage("Please enter a keyword to search.");
-            return;
+            throw new EepyException("Please enter a keyword to search.");
         }
 
         tasks.findTasks(keyword); // Delegate search logic to TaskList

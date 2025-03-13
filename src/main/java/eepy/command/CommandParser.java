@@ -41,7 +41,7 @@ public class CommandParser {
                     throw new EepyException("No command entered. Please type a command.");
                 } else {
                     throw new EepyException("Invalid command: " + userInput + "." +
-                            "\nPlease use 'todo', 'deadline', 'event', 'mark', 'unmark', or 'list'.");
+                            "\nPlease use 'todo', 'deadline', 'event', 'mark', 'unmark', 'find' or 'list'.");
                 }
             } catch (EepyException e) {
                 Ui.showMessage("Aw man! " + e.getMessage());

@@ -1,6 +1,5 @@
 package eepy.command;
 
-import eepy.exception.EepyException;
 import eepy.task.TaskList;
 import eepy.ui.Ui;
 
@@ -22,7 +21,7 @@ public class MarkCommand extends Command{
     public MarkCommand(String userInput, boolean markDone) {
         super(userInput);
         this.markDone = markDone;
-    };
+    }
 
     /**
      * Executes the command to mark or unmark a task as done.
@@ -30,10 +29,9 @@ public class MarkCommand extends Command{
      * @param userInput The original user input.
      * @param tasks The TaskList containing tasks.
      * @param input The Scanner for reading user input.
-     * @throws EepyException If an error occurs during execution.
      */
     @Override
-    public void execute(String userInput, TaskList tasks, Scanner input) throws EepyException {
+    public void execute(String userInput, TaskList tasks, Scanner input) {
 
         String command = markDone ? "mark" : "unmark";
 

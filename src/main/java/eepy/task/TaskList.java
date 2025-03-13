@@ -132,7 +132,7 @@ public class TaskList {
      */
     public void markTaskAsDone(int index, boolean markDone) {
         if (index < 0 || index >= tasks.size()) {
-            Ui.showMessage("Task number not within range.");
+            Ui.showMessage("Aw man! Task number not within range.");
             return;
         }
         Task task = tasks.get(index);

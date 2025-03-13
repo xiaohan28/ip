@@ -3,6 +3,7 @@ package eepy.command;
 import eepy.database.Database;
 import eepy.exception.EepyException;
 import eepy.task.TaskList;
+import eepy.ui.Ui;
 
 import java.util.Scanner;
 
@@ -30,13 +31,19 @@ public class RemoveCommand extends Command {
      */
     @Override
     public void execute(String userInput, TaskList tasks, Scanner input) throws EepyException {
-        int taskToRemove = Integer.parseInt(this.userInput.substring("remove".length()).trim()) - 1;
+        try {
+            int taskToRemove = Integer.parseInt(this.userInput.substring("remove".length()).trim()) - 1;
 
-        if (taskToRemove < 0 || taskToRemove >= tasks.size()) {
-            throw new EepyException("Task number not within range.");
+            if (taskToRemove < 0 || taskToRemove >= tasks.size()) {
+                throw new EepyException("Task number not within range.");
+            }
+            printTaskRemoved(tasks, taskToRemove);
+            tasks.removeTask(taskToRemove);
+            Database.saveTasks(tasks); // Save updates after removal
+
+        } catch (NumberFormatException e) {
+            Ui.showMessage("Invalid task number, please provide an integer.");
         }
-        printTaskRemoved(tasks, taskToRemove);
-        tasks.removeTask(taskToRemove);
-        Database.saveTasks(tasks); // Save updates after removal
+
     }
 }
