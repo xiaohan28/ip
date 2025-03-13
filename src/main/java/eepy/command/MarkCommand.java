@@ -1,5 +1,6 @@
 package eepy.command;
 
+import eepy.exception.EepyException;
 import eepy.task.TaskList;
 import eepy.ui.Ui;
 
@@ -31,7 +32,7 @@ public class MarkCommand extends Command{
      * @param input The Scanner for reading user input.
      */
     @Override
-    public void execute(String userInput, TaskList tasks, Scanner input) {
+    public void execute(String userInput, TaskList tasks, Scanner input) throws EepyException {
 
         String command = markDone ? "mark" : "unmark";
 

@@ -32,7 +32,7 @@ public class EventCommand extends Command {
     public void execute(String userInput, TaskList tasks, Scanner input) throws EepyException {
 
         String description, from, to;
-        String[] eventParts = userInput.substring(5).trim().split("/from|/to");
+        String[] eventParts = userInput.substring(5).trim().split("/from |/to ");
 
         if (eventParts.length == 3) {
             description = eventParts[0].trim();

@@ -32,7 +32,7 @@ public class DeadlineCommand extends Command {
     public void execute(String userInput, TaskList tasks, Scanner input) throws EepyException {
 
         String description, by;
-        String[] deadlineParts = userInput.substring(8).trim().split("/by");
+        String[] deadlineParts = userInput.substring(8).trim().split("/by ");
 
         if (deadlineParts.length == 2) {
             description = deadlineParts[0].trim();

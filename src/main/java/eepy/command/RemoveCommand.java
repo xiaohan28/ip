@@ -44,6 +44,6 @@ public class RemoveCommand extends Command {
         } catch (NumberFormatException e) {
             Ui.showMessage("Invalid task number, please provide an integer.");
         }
-
     }
+
 }

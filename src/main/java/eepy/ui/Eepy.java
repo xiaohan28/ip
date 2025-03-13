@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 /**
  * Main entry point for the Eepy To-DoList Tracker application.
- * This class initialises the application, loads saved tasks, and
+ * This class initialises the application, loadsre saved tasks, and
  * handles user interaction via command parsing.
  */
 

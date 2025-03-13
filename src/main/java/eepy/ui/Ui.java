@@ -22,7 +22,17 @@ public class Ui {
      */
     public static void showWelcomeMessage() {
         printSeparator();
-        System.out.println("Hello! I'm Eepy" + "\n" + "Let's be productive today :>");
+        String logo = "  ______  ______  _____  __     __\n"
+                + " |  ____||  ____||  __ \\ \\ \\   / /\n"
+                + " | |____ | |____ | |__) | \\ \\_/ /  \n"
+                + " |  ____||  ____||  ___/   \\   /  \n"
+                + " | |____ | |____ | |        | |  \n"
+                + " |______||______||_|        |_|  \n\n"
+                + "        (\\_/)\n"
+                + "       ( -.-)  zzZ   \n"
+                + "       (\")_(\")  \n\n"
+                + "  ~ Sleepy Yet Productive Rabbit ~\n";
+        System.out.println(logo + "\nHello! I'm Eepy" + "\n" + "Let's be productive today :>");
         printSeparator();
     }
 

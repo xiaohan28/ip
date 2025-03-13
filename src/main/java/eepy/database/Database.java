@@ -93,7 +93,7 @@ public class Database{
         switch (taskType) {
         case "T" -> task = new ToDo(description);
         case "D" -> {
-            String[] deadlineFormat = description.split("/by", 2); //limit split into 2 only
+            String[] deadlineFormat = description.split("/by ", 2); //limit split into 2 only
 
             if (deadlineFormat.length < 2) return null;
             String deadlineDescription = deadlineFormat[0];
@@ -101,7 +101,7 @@ public class Database{
             task = new Deadline(deadlineDescription, by);
         }
         case "E" -> {
-            String[] eventFormat = description.split("/from|/to", 3);
+            String[] eventFormat = description.split("/from |/to ", 3);
             if (eventFormat.length < 3) return null;
             String eventDescription = eventFormat[0];
             String from = eventFormat[1];

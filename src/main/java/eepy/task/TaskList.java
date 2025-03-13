@@ -1,6 +1,7 @@
 package eepy.task;
 
 import eepy.database.Database;
+import eepy.exception.EepyException;
 import eepy.ui.Ui;
 import java.util.ArrayList;
 
@@ -119,7 +120,7 @@ public class TaskList {
         if (matchingTasks.isEmpty()) {
             Ui.showMessage("No matching tasks found.");
         } else {
-            Ui.showMessage("Here are the matching tasks in your list:");
+            Ui.showMessage("Found it! Here are the matching tasks:");
             for (int i = 0; i < matchingTasks.size(); i++) {
                 System.out.println((i + 1) + ". " + matchingTasks.get(i));
             }
@@ -130,10 +131,9 @@ public class TaskList {
     /**
      * Displays the list of tasks.
      */
-    public void markTaskAsDone(int index, boolean markDone) {
+    public void markTaskAsDone(int index, boolean markDone) throws EepyException {
         if (index < 0 || index >= tasks.size()) {
-            Ui.showMessage("Aw man! Task number not within range.");
-            return;
+            throw new EepyException("Task number not within range.");
         }
         Task task = tasks.get(index);
 
