@@ -24,23 +24,33 @@ public class Database{
      */
     public static void saveTasks(TaskList tasks) {
         try {
-            FileWriter fw = new FileWriter(RELATIVE_FILE_PATH);
-            String taskData;
-            for (Task task : tasks.getTasks()) {
-                if (task instanceof Deadline deadline) {
-                    taskData = deadline.getDescription() + "/by" + deadline.getBy();
-                } else if (task instanceof Event event) {
-                    taskData = event.getDescription() + "/from" + event.getFrom() + "/to" + event.getTo();
-                } else {
-                    taskData = task.getDescription();
-                }
-                fw.write(task.getTaskType() + "|" + (task.isDone() ? "1" : "0") +
-                        "|" + taskData + "\n");
-            }
+            File file = new File(RELATIVE_FILE_PATH);
+
+            FileWriter fw = getFileWriter(tasks, file);
+
             fw.close();
+
         } catch (IOException e) {
             Ui.showMessage("Error saving tasks: " +e.getMessage());
         }
+    }
+
+    private static FileWriter getFileWriter(TaskList tasks, File file) throws IOException {
+        FileWriter fw = new FileWriter(file);
+
+        String taskData;
+        for (Task task : tasks.getTasks()) {
+            if (task instanceof Deadline deadline) {
+                taskData = deadline.getDescription() + "/by " + deadline.getBy();
+            } else if (task instanceof Event event) {
+                taskData = event.getDescription() + "/from " + event.getFrom() + "/to " + event.getTo();
+            } else {
+                taskData = task.getDescription();
+            }
+            fw.write(task.getTaskType() + "|" + (task.isDone() ? "1" : "0") +
+                    "|" + taskData + "\n");
+        }
+        return fw;
     }
 
     /**
@@ -53,6 +63,7 @@ public class Database{
         File file = new File(RELATIVE_FILE_PATH);
 
         if (!file.exists()) {
+
             return new TaskList(tasks);
         }
 
@@ -66,6 +77,7 @@ public class Database{
                 }
             }
             s.close();
+
         } catch (FileNotFoundException e) {
             Ui.showMessage("File not found");
         }
