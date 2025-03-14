@@ -15,7 +15,7 @@ import java.io.IOException;
  * Handles saving and loading tasks to and from a file.
  */
 public class Database{
-    private static final String RELATIVE_FILE_PATH = "../../../data/eepy.txt";
+    private static final String RELATIVE_FILE_PATH = System.getProperty("user.dir") + "/data/eepy.txt";
 
     /**
      * Saves the current list of tasks to a textfile.
@@ -25,6 +25,12 @@ public class Database{
     public static void saveTasks(TaskList tasks) {
         try {
             File file = new File(RELATIVE_FILE_PATH);
+
+            // Ensure the parent directory (data/) exists before writing to the file
+            File parentDir = file.getParentFile();
+            if (parentDir != null) {
+                parentDir.mkdirs();
+            }
 
             FileWriter fw = getFileWriter(tasks, file);
 
